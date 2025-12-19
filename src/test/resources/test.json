@@ -2,5 +2,14 @@
   "testData": {
     "email": "john@mail.com",
     "password": "changeme"
+  },
+  "allValidDetails": {
+    "title": "jeans products men and child",
+    "price": 12,
+    "description": "stylish and simple",
+    "categoryId": 8,
+    "images": [
+      "https://placehold.co/600x400"
+    ]
   }
 }
