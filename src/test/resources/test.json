@@ -4,12 +4,16 @@
     "password": "changeme"
   },
   "allValidDetails": {
-    "title": "jeans products men and child",
+    "title": "$title",
     "price": 12,
-    "description": "stylish and simple",
-    "categoryId": 8,
+    "description": "$description",
+    "categoryId": "$categoryId",
     "images": [
-      "https://placehold.co/600x400"
+      "https://placehold.co/600x40"
     ]
-  }
+  },
+  "createCategoryPayload": {
+    "name": "$name",
+  "image": "$image"
+}
 }

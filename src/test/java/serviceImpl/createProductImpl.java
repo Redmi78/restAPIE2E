@@ -28,4 +28,19 @@ import static io.restassured.RestAssured.given;
             return createProductResponse;
         }
 
+        @Override
+        public Response createUserCategories(String createUserCategoriesRequestBody, String token) throws IOException {
+            createUserCategoriesResponse =given(utilis.ecommerceRequestSpecification())
+                    .header("Authorization","Bearer "+token)
+                    .body(createUserCategoriesRequestBody)
+                    .when().log().all()
+                    .post("/categories")
+                    .then()
+                    .log().all()
+                    .extract()
+                    .response();
+
+            return createUserCategoriesResponse;
+        }
+
     }

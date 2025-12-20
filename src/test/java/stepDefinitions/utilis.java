@@ -3,6 +3,7 @@ package stepDefinitions;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.json.JSONObject;
 
 import java.io.File;
@@ -62,5 +63,15 @@ public class utilis {
         String content= new String(Files.readAllBytes(Paths.get(filename)));
         return new JSONObject(content);
     }
+
+    public  static String getRandomName() {
+        String generatedString = RandomStringUtils.randomAlphanumeric(10);
+
+        System.out.println(generatedString);
+
+        return generatedString;
+
+    }
+
 
 }
