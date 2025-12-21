@@ -14,6 +14,10 @@
   },
   "createCategoryPayload": {
     "name": "$name",
-  "image": "$image"
-}
+    "image": "$image"
+  },
+  "fakeStoreTestData": {
+    "username": "mor_2314",
+    "password": "83r5^_"
+  }
 }

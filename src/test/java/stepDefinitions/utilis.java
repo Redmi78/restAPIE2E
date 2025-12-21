@@ -26,6 +26,14 @@ public class utilis {
 
     }
 
+    public static RequestSpecification fakeStoreRequestSpecification() throws IOException {
+        return new RequestSpecBuilder()
+                .setBaseUri(getEcommerceData("fakeStoreBaseURI"))
+                .setContentType(ContentType.JSON)
+                .build();
+
+    }
+
 
     public static String getEcommerceData(String dataPath) throws IOException {
         String path;
