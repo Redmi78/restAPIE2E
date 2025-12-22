@@ -81,5 +81,15 @@ public class utilis {
 
     }
 
+    public  static String getRandomEmail() {
+        String generatedRandomEmail = RandomStringUtils.randomAlphanumeric(10);
+
+        System.out.println(generatedRandomEmail);
+        String email = generatedRandomEmail + "@mailsac.com";
+
+        return email;
+
+    }
+
 
 }

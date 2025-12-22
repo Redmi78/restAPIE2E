@@ -10,4 +10,7 @@ public interface authJWTEndpoints {
 
 
      Response authenticateFakeStoreUser(String fakeStoreAuthRequestBody) throws IOException;
+
+
+     Response createUser(String userRequestBody,String token) throws IOException;
 }

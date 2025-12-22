@@ -19,5 +19,11 @@
   "fakeStoreTestData": {
     "username": "mor_2314",
     "password": "83r5^_"
+  },
+  "newuser": {
+    "id": 0,
+    "username": "$username",
+    "email": "$email",
+    "password": "testing123"
   }
 }

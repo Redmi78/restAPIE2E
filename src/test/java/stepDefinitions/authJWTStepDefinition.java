@@ -68,6 +68,9 @@ public class authJWTStepDefinition {
             case "fakestoreclienttoken":
                 fakeStoreAuthResponse.then().assertThat().statusCode(statusCode);
                 break;
+            case "createUser":
+                createUserResponse.then().assertThat().statusCode(statusCode);
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + scenario);
         }
