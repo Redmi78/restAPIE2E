@@ -25,5 +25,19 @@
     "username": "$username",
     "email": "$email",
     "password": "testing123"
+  },
+  "addCart": {
+    "id": "$id",
+    "userId": "$userId",
+    "products": [
+      {
+        "id": "$id",
+        "title": "testUser",
+        "price":"50.5",
+        "description": "testUser description",
+        "category": "category1",
+        "image": "https://google.com/"
+      }
+    ]
   }
 }

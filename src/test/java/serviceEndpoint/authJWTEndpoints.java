@@ -13,4 +13,6 @@ public interface authJWTEndpoints {
 
 
      Response createUser(String userRequestBody,String token) throws IOException;
+
+     Response createCart(String cartRequestBody,String token) throws IOException;
 }

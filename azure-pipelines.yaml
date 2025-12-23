@@ -1,0 +1,15 @@
+trigger:
+  - main   # or the branch you want to trigger on
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+  - task: UseJavaVersion@1
+    inputs:
+      versionSpec: '11'  # or your Java version
+      jdkArchitecture: 'x64'
+
+  - script: |
+      mvn clean test
+    displayName: 'Run Rest Assured Tests'

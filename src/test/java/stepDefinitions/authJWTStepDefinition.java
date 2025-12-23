@@ -2,17 +2,22 @@ package stepDefinitions;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.restassured.module.jsv.JsonSchemaValidator;
 import serviceImpl.authJWTEndpointsImpl;
 import serviceImpl.createProductImpl;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static stepDefinitions.AbstractDefinition.*;
 
 public class authJWTStepDefinition {
     authJWTEndpointsImpl authJWTEndpointsimpl = new authJWTEndpointsImpl();
     createProductImpl createProductimpl = new createProductImpl();
-    String authRequestBody, createProductRequestBody, access_token,createUserCategoryRequestBody;
+    String authRequestBody, createProductRequestBody, access_token, createUserCategoryRequestBody;
 
     @Given("client token is generated with {string}")
     public void clientTokenIsGenerated(String scenario) throws IOException {
@@ -34,7 +39,7 @@ public class authJWTStepDefinition {
         createProductRequestBody = utilis.parseJsonFile("src/test/resources/test.json").getJSONObject(scenario).toString();
         createProductRequestBody = createProductRequestBody.replace("$name", utilis.getRandomName())
                 .replace("$title", utilis.getRandomName())
-                .replace("$description", "This is a description for " + utilis.getRandomName()).replace("$categoryId",createUserCategoriesResponse.jsonPath().getString("id"));
+                .replace("$description", "This is a description for " + utilis.getRandomName()).replace("$categoryId", createUserCategoriesResponse.jsonPath().getString("id"));
 
         createProductimpl.createUserProduct(createProductRequestBody, access_token);
 
@@ -46,7 +51,7 @@ public class authJWTStepDefinition {
     public void aUserCategories(String scenario, String token) throws IOException {
         createUserCategoryRequestBody = utilis.parseJsonFile("src/test/resources/test.json").getJSONObject(scenario).toString();
         createUserCategoryRequestBody = createUserCategoryRequestBody.replace("$name", utilis.getRandomName())
-        .replace( "$image","https://placehold.co/"+utilis.getRandomName()+".jpg");
+                .replace("$image", "https://placehold.co/" + utilis.getRandomName() + ".jpg");
         createProductimpl.createUserCategories(createUserCategoryRequestBody, access_token);
 
 
@@ -71,8 +76,14 @@ public class authJWTStepDefinition {
             case "createUser":
                 createUserResponse.then().assertThat().statusCode(statusCode);
                 break;
+            case "addCart":
+                createCartResponse.then().assertThat().statusCode(statusCode)
+                        .and().body(JsonSchemaValidator.matchesJsonSchemaInClasspath("schemas/addToCart.json"));
+                break;
+
             default:
                 throw new IllegalStateException("Unexpected value: " + scenario);
+
         }
 
     }

@@ -55,6 +55,20 @@ public class authJWTEndpointsImpl extends AbstractDefinition implements authJWTE
         return createUserResponse;
     }
 
+    @Override
+    public Response createCart(String cartRequestBody, String token) throws IOException {
+        createCartResponse =given(utilis.fakeStoreRequestSpecification())
+                .body(cartRequestBody)
+                .when().log().all()
+                .post("/carts")
+                .then()
+                .log().all()
+                .extract()
+                .response();
+
+        return createCartResponse;
+    }
+
     /*@Override
     public Response authenticateUser2(Map<String,String> username, String token) throws IOException {
 
