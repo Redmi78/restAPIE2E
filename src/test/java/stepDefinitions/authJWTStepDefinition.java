@@ -1,17 +1,18 @@
 package stepDefinitions;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.restassured.module.jsv.JsonSchemaValidator;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import serviceImpl.authJWTEndpointsImpl;
 import serviceImpl.createProductImpl;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchema;
-import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static stepDefinitions.AbstractDefinition.*;
 
 public class authJWTStepDefinition {
@@ -57,6 +58,14 @@ public class authJWTStepDefinition {
 
     }
 
+    @Given("I retrieve {string}")
+    public void iRetrieveAllCategories(String scenario) throws IOException {
+
+        getListCategoriesResponse = createProductimpl.getListCategories(scenario);
+
+    }
+
+
     @Then("I validate the {string} status code should be {int}")
     public void iValidateTheStatusCodeShouldBe(String scenario, int statusCode) {
         switch (scenario) {
@@ -80,6 +89,9 @@ public class authJWTStepDefinition {
                 createCartResponse.then().assertThat().statusCode(statusCode)
                         .and().body(JsonSchemaValidator.matchesJsonSchemaInClasspath("schemas/addToCart.json"));
                 break;
+            case "getSearchListCategories":
+                getListCategoriesResponse.then().assertThat().statusCode(statusCode);
+                break;
 
             default:
                 throw new IllegalStateException("Unexpected value: " + scenario);
@@ -89,4 +101,17 @@ public class authJWTStepDefinition {
     }
 
 
+    @And("validate the response contains categories list")
+    public void validateTheResponseContainsCategoriesList() {
+        JSONArray array = new JSONArray(getListCategoriesResponse.asString());
+
+        for(int i=0;i<array.length();i++)
+        {
+            JSONObject category =array.getJSONObject(i);
+            System.out.println("Category ID: " + category.getInt("id"));
+            System.out.println("Category Name: " + category.getString("name"));
+            System.out.println("Category Image: " + category.getString("image"));
+            System.out.println("--------------------------------------------------");
+        }
+    }
 }

@@ -43,4 +43,18 @@ import static io.restassured.RestAssured.given;
             return createUserCategoriesResponse;
         }
 
+        @Override
+        public Response getListCategories(String token) throws IOException {
+            createGetListCategories =given(utilis.ecommerceRequestSpecification())
+                    .header("Authorization","Bearer "+token)
+                    .when().log().all()
+                    .get("/categories")
+                    .then()
+                    .log().all()
+                    .extract()
+                    .response();
+
+            return createGetListCategories;
+        }
+
     }
